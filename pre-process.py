@@ -1,56 +1,15 @@
-'''
-Available attributes -
-
-color                       string
-director_name               string
-num_critic_for_reviews      integer
-duration                    integer
-director_facebook_likes     integer
-actor_3_facebook_likes      integer
-actor_2_name                string
-actor_1_facebook_likes      integer
-gross                       integer
-genres                      string
-actor_1_name                string
-movie_title                 string
-num_voted_users             integer
-cast_total_facebook_likes   integer
-actor_3_name                string
-facenumber_in_poster        integer
-plot_keywords               string
-movie_imdb_link             url
-num_user_for_reviews        integer
-language                    string
-country                     string
-content_rating              string
-budget                      integer
-title_year                  year
-actor_2_facebook_likes      integer
-imdb_score                  decimal
-aspect_ratio                decimal
-movie_facebook_likes        integer
-
-Based on some analysis we've come to the conclusion that the required attributes that majorly affect movie ratings are-
-
-imdb_score
-duration
-director_facebook_likes
-actor_1_facebook_likes
-actor_2_facebook_likes
-actor_3_facebook_likes
-genres
-
-'''
-
 import csv
 
 attributes = [  "imdb_score",
+                "num_critic_for_reviews",
                 "duration",
                 "director_facebook_likes",
                 "actor_1_facebook_likes",
                 "actor_2_facebook_likes",
                 "actor_3_facebook_likes",
-                "genres"
+                "budget",
+                "movie_facebook_likes",
+                "gross"
             ]
 
 attributes_index = [-1 for i in range(len(attributes))]
@@ -100,7 +59,7 @@ for i in range(len(total)):
 print(mean)
 
 # cleaning data by substituting mean and splitting genres
-genres = []
+# genres = []
 for row in data:
 
     # substituting mean for missing or 0 numerical data
@@ -109,7 +68,7 @@ for row in data:
             row[i] = mean[i]
 
     # converting numerical data to int or float from string
-    genre = row.pop()
+    # genre = row.pop()
     for i in range(len(row)):
         try:
             row[i] = int(row[i])
@@ -117,13 +76,13 @@ for row in data:
             row[i] = float(row[i])
 
     # replacing genres by their index in the global genre list
-    genre = genre.split("|")
-    for i in genre:
-        if i not in genres:
-            genres.append(i)
-    for i in range(len(genre)):
-        genre[i] = genres.index(genre[i])
-    row.append(genre)
+    # genre = genre.split("|")
+    # for i in genre:
+    #     if i not in genres:
+    #         genres.append(i)
+    # for i in range(len(genre)):
+    #     genre[i] = genres.index(genre[i])
+    # row.append(genre)
     print(row)
 
-print(genres)
+# print(genres)
