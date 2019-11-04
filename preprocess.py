@@ -65,11 +65,12 @@ def process(filename):
             row[i] = int(round(float(row[i])))
 
     # writing new csv
-    with open('movie_metadata_filtered_aftercsv.csv','wb') as findata:
+    with open('movie_metadata_filtered_aftercsv.csv','w') as findata:
         findata = csv.writer(findata, delimiter=',')
         findata.writerow(attributes)
         for i in data:
             findata.writerow(i)
+            print(i)
 
 def main():
     process('movie_metadata.csv')
