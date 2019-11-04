@@ -1,11 +1,7 @@
 import numpy as np
 import pandas as pd
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from sklearn.neighbors import KNeighborsClassifier
-# from sklearn.metrics import accuracy_score
-from sklearn import svm
-from sklearn.naive_bayes import GaussianNB,BernoulliNB
 import pickle
 
 np.random.seed(0)
@@ -15,15 +11,20 @@ THRESHOLD_PREDICTION = 1
 
 def _make_in_format(filename):
     datadf = pd.read_csv(filename)
-    #separate classes and stuffs
+    # separate classes and stuffs
     y = np.array(datadf['imdb_score'])
-    datadf = datadf.drop(datadf.columns[[0,9]],axis=1)
-    #normalize
+    # dropping the columns that we don't need in X
+    datadf = datadf.drop(datadf.columns[[0,8]],axis=1)
+    # normalizing the data- ie. between -1 and +1
     datadf = (datadf-datadf.mean())/(datadf.max()-datadf.min())
     X = np.array(datadf)
-
     return X,y
 
+# pickling the data (model) -
+'''
+ie. storing it in a different file so as to not create model each time
+stored at `models` folder
+'''
 def _pickle_it(model,filename):
     a = pickle.dumps(model)
     write_file = open('models/'+filename,'w')
@@ -40,12 +41,18 @@ def accuracy_score(y_test,predictions):
         accuracy = sum(map(int,correct))*1.0/len(correct)
         return accuracy
 
-def Knn():
+# Creating and pickling Logistic regression model
+def LogRegression():
     X,y = _make_in_format(FILENAME)
-    X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.3,random_state=0)
-    model = KNeighborsClassifier(algorithm='ball_tree')
+    X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.3,random_state=1)
+    model = LogisticRegression(solver='newton-cg',multi_class='ovr',max_iter=200,penalty='l2')
     model.fit(X_train,y_train)
     predictions = model.predict(X_test)
-    # print y_test
-    _pickle_it(model,"Knn_thre1")
-    print "knn score ",accuracy_score(y_test,predictions)*100
+    _pickle_it(model,"LogRegression_thre1")
+    print "LogRegression ",accuracy_score(y_test,predictions)*100
+
+def main():
+    LogRegression()
+
+if __name__ == '__main__':
+    main()

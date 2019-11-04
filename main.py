@@ -1,16 +1,19 @@
 import pickle
+import sys
 import pandas as pd
+import numpy as np
 from preprocess import process
 from sklearn.linear_model import LogisticRegression
 
 FILENAME = 'movie_metadata_filtered_aftercsv.csv'
+np.set_printoptions(threshold=sys.maxsize)
 
 def main():
-    model = pickle.loads(open('models/LogRegression_thre1'))
+    model = pickle.load(open('models/LogRegression_thre1'))
     # provide your filename here
-    process(filename='your_file_name.csv')
+    process(filename='movie_metadata_filtered_aftercsv.csv')
     datadf = pd.read_csv(FILENAME)
-    datadf = datadf.drop(datadf.columns[[0]],axis=1)
+    datadf = datadf.drop(datadf.columns[[0,8]],axis=1)
     datadf = (datadf-datadf.mean())/(datadf.max()-datadf.min())
     X = np.array(datadf)
     predictions = model.predict(X)
