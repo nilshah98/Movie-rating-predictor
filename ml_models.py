@@ -2,6 +2,9 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn import svm
+from sklearn.naive_bayes import GaussianNB,BernoulliNB
 import pickle
 
 np.random.seed(0)
@@ -47,6 +50,18 @@ def accuracy_score(y_test,predictions):
         accuracyone = sum(map(int,correctone))*1.0/len(correctone)
         return [accuracy,accuracyone]
 
+def Knn():
+    X,y = _make_in_format(FILENAME)
+    X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.3,random_state=0)
+    model = KNeighborsClassifier(algorithm='ball_tree')
+    model.fit(X_train,y_train)
+    predictions = model.predict(X_test)
+    # print y_test
+    _pickle_it(model,"Knn_thre1")
+    print "knn score ",accuracy_score(y_test,predictions)[0]*100
+    print "knn score ",accuracy_score(y_test,predictions)[1]*100
+
+
 # Creating and pickling Logistic regression model
 def LogRegression():
     X,y = _make_in_format(FILENAME)
@@ -58,8 +73,38 @@ def LogRegression():
     print "LogRegression with perfect- ",accuracy_score(y_test,predictions)[0]*100
     print "LogRegression with deviation of one- ",accuracy_score(y_test,predictions)[1]*100
 
+def Svm():
+    X,y = _make_in_format(FILENAME)
+    X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.3,random_state=1)
+    model = svm.SVC()
+    model.fit(X_train,y_train)
+    predictions = model.predict(X_test)
+    _pickle_it(model,"svm_thre1")
+    print "SVM ",accuracy_score(y_test,predictions)[0]*100
+    print "SVM with devition of one ",accuracy_score(y_test,predictions)[1]*100
+
+def naiveBayes():
+    X,y = _make_in_format(FILENAME)
+    X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.3,random_state=1)
+    model_guass = GaussianNB()
+    model = BernoulliNB()
+    model_guass.fit(X_train,y_train)
+    model.fit(X_train,y_train)
+    predictions_gauss = model_guass.predict(X_test)
+    predictions = model.predict(X_test)
+    _pickle_it(model,"Bernoulli_thre1")
+    _pickle_it(model_guass,"guass_thre1")
+    print "naive bayes using gaussian ",accuracy_score(y_test,predictions_gauss)[0]*100
+    print "naive bayes using gaussian with deviation of one- ",accuracy_score(y_test,predictions_gauss)[1]*100
+    print "naive bayes using Bernoulli ",accuracy_score(y_test,predictions)[0]*100
+    print "naive bayes using Bernoulli with deviation of one- ",accuracy_score(y_test,predictions)[1]*100
+
+
 def main():
+    Knn()
     LogRegression()
+    Svm()
+    naiveBayes()
 
 if __name__ == '__main__':
     main()

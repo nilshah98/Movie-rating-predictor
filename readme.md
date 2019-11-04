@@ -32,6 +32,24 @@ imdb_score               |  decimal  |
 aspect_ratio             |  decimal  |
 movie_facebook_likes     |  integer  |
 
+We analysed the model for various algorithms for predicting with a variance of one against predicting exact integer value-  
+#### Predicting exact value
+| Model | Accuracy |
+| KNN | 34.1705221414 |
+| Logistic Regression |  35.6906807667 |
+| SVM |  35.9550561798 |
+| Naaive Bayes (Gaussian) |  13.3509583609 |
+| Naaive Bayes (Bernoulli) | 34.8975545274 | 
+
+#### Prediciting with a deviation of one
+| Model | Accuracy |
+| KNN | 80.766688698 |
+| Logistic Regression |  81.758096497 |
+| SVM |   81.6920026438 |
+| Naaive Bayes (Gaussian) |  38.7970918705 |
+| Naaive Bayes (Bernoulli) | 79.312623926 | 
+
+
 Based on some analysis we've come to the conclusion that the required attributes that majorly affect movie ratings are-
 
 | attributes | ratings |
