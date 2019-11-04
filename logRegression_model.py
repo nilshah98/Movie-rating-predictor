@@ -14,7 +14,7 @@ def _make_in_format(filename):
     # separate classes and stuffs
     y = np.array(datadf['imdb_score'])
     # dropping the columns that we don't need in X
-    datadf = datadf.drop(datadf.columns[[0,8]],axis=1)
+    datadf = datadf.drop(datadf.columns[[0]],axis=1)
     # normalizing the data- ie. between -1 and +1
     datadf = (datadf-datadf.mean())/(datadf.max()-datadf.min())
     X = np.array(datadf)

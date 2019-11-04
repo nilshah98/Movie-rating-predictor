@@ -5,12 +5,12 @@ def process(filename):
                     "num_critic_for_reviews",
                     "duration",
                     "director_facebook_likes",
-                    "actor_1_facebook_likes",
-                    "actor_2_facebook_likes",
                     "actor_3_facebook_likes",
-                    "budget",
+                    "cast_total_facebook_likes",
                     "movie_facebook_likes",
-                    "gross"
+                    "num_voted_users",
+                    "budget",
+                    "gross",
                 ]
 
     attributes_index = [-1 for i in range(len(attributes))]

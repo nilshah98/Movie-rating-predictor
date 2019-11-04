@@ -13,7 +13,7 @@ def main():
     # provide your filename here
     process(filename='movie_metadata_filtered_aftercsv.csv')
     datadf = pd.read_csv(FILENAME)
-    datadf = datadf.drop(datadf.columns[[0,8]],axis=1)
+    datadf = datadf.drop(datadf.columns[[0]],axis=1)
     datadf = (datadf-datadf.mean())/(datadf.max()-datadf.min())
     X = np.array(datadf)
     predictions = model.predict(X)
