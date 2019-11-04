@@ -35,6 +35,7 @@ movie_facebook_likes     |  integer  |
 We analysed the model for various algorithms for predicting with a variance of one against predicting exact integer value-  
 #### Predicting exact value
 | Model | Accuracy |
+| ----- | -------- |
 | KNN | 34.1705221414 |
 | Logistic Regression |  35.6906807667 |
 | SVM |  35.9550561798 |
@@ -43,6 +44,7 @@ We analysed the model for various algorithms for predicting with a variance of o
 
 #### Prediciting with a deviation of one
 | Model | Accuracy |
+| ----- | -------- |
 | KNN | 80.766688698 |
 | Logistic Regression |  81.758096497 |
 | SVM |   81.6920026438 |
